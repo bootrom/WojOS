@@ -3,4 +3,7 @@ Author: Peter Wojciechowski
 Lightweight embedded operating system
 
 TODO:
-	Setup Makefile
+	Setup Makefile - DONE
+	Get simavr working
+	Basic task switching
+	Round robim scheduler

@@ -1,9 +1,43 @@
-CROSS_COMPILE=avr-gcc
-CFLAGS=-Wall -I. -L.
+###############################################################################
+# COMPILER SELECT
+###############################################################################
+CROSS_COMPILE= avr-gcc
 
-board: board.o
+###############################################################################
+# FLAGS
+###############################################################################
+C_FLAGS=-Wall -g -mmcu=atmega1280 -DF_CPU=8000000 -std=c99
+LD_FLAGS=-mmcu=atmega1280 -Wl,-Map=$(MAP_FILE)
+INCLUDES=-I.
 
-clean:
-	rm -f board board.o
-#Libraries to add:
-#/usr/lib/avr/lib
+###############################################################################
+# FILES
+###############################################################################
+ELF_FILE=wojOS.elf
+MAP_FILE=wojOS.map
+C_FILES=board.c
+
+OBJ_FILES=$(C_FILES:%.c=%.o)
+DEP_FILES=$(C_FILES:%.c=%.d)
+
+###############################################################################
+# TARGETS
+###############################################################################
+$(ELF_FILE): $(OBJ_FILES)
+	$(CROSS_COMPILE) -o $@ $< $(LD_FLAGS)
+
+%.o: %.c
+	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -M -o $*.d $<
+	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -c -o $@ $<
+
+###############################################################################
+# CLEAN
+###############################################################################
+clean: clean_obj clean_dep
+	rm -f $(ELF_FILE) $(MAP_FILE)
+
+clean_obj:
+	rm -f $(OBJ_FILES)
+
+clean_dep:
+	rm -f $(DEP_FILES)
