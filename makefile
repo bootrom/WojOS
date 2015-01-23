@@ -1,13 +1,14 @@
 ###############################################################################
 # COMPILER SELECT
 ###############################################################################
-CROSS_COMPILE= avr-gcc
+CROSS_COMPILE=avr-gcc
+MICRO_CONTROLLER=atmega1280
 
 ###############################################################################
 # FLAGS
 ###############################################################################
-C_FLAGS=-Wall -g -mmcu=atmega1280 -DF_CPU=8000000 -std=c99
-LD_FLAGS=-mmcu=atmega1280 -Wl,-Map=$(MAP_FILE)
+C_FLAGS=-Wall -g -mmcu=$(MICRO_CONTROLLER) -DF_CPU=8000000 -std=c99 -O2
+LD_FLAGS=-mmcu=$(MICRO_CONTROLLER) -Wl,-Map=$(MAP_FILE)
 INCLUDES=-I.
 
 ###############################################################################
