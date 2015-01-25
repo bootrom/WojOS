@@ -29,7 +29,7 @@ DEP_FILES+=$(SRC_FILES:%.S=%.d)
 # TARGETS
 ###############################################################################
 $(ELF_FILE): $(OBJ_FILES)
-	$(CROSS_COMPILE) -o $@ $< $(LD_FLAGS)
+	$(CROSS_COMPILE) -o $@ $(OBJ_FILES) $(LD_FLAGS)
 
 %.o: %.c
 	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -M -o $*.d $<

@@ -1,5 +1,4 @@
-#include "stdlib.h"
-#include "stdint.h"
+#include "avr/io.h"
 
 #define CHAR_SIZE (0x3 << 1)
 #define UART_ENABLE (0x3 << 3)
