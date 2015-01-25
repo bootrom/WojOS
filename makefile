@@ -2,7 +2,7 @@
 # COMPILER SELECT
 ###############################################################################
 CROSS_COMPILE=avr-gcc
-MICRO_CONTROLLER=atmega1280
+MICRO_CONTROLLER=atmega328
 
 ###############################################################################
 # FLAGS
@@ -16,10 +16,14 @@ INCLUDES=-I.
 ###############################################################################
 ELF_FILE=wojOS.elf
 MAP_FILE=wojOS.map
-C_FILES=board.c
+VPATH=drivers
+C_FILES=board.c uart.c
+SRC_FILES=
 
 OBJ_FILES=$(C_FILES:%.c=%.o)
+OBJ_FILES+=$(SRC_FILES:%.S=%.o)
 DEP_FILES=$(C_FILES:%.c=%.d)
+DEP_FILES+=$(SRC_FILES:%.S=%.d)
 
 ###############################################################################
 # TARGETS
@@ -30,6 +34,10 @@ $(ELF_FILE): $(OBJ_FILES)
 %.o: %.c
 	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -M -o $*.d $<
 	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -c -o $@ $<
+
+$.o: %.S
+	$(CROSS_COMPILE) -D__ASM__ $(C_FLAGS) $(INCLUDES) -M -o $* .d $<
+	$(CROSS_COMPILE) -D__ASM__ $(C_FLAGS) $(INCLUDES) -c -o $@ $<
 
 ###############################################################################
 # CLEAN
@@ -42,3 +50,5 @@ clean_obj:
 
 clean_dep:
 	rm -f $(DEP_FILES)
+
+-include $(DEP_FILES)
