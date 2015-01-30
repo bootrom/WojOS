@@ -62,6 +62,7 @@ void * task_spawn(void *stackBase, int stackSize, void (*taskPointer)())
 
 void task2()
 {
+	uartTx('2');
 	//puts("This is task2\n", sizeof("this is task2\n");
 }
 
@@ -73,9 +74,9 @@ int main()
 
 	while (1)
 	{
-		uartTx('W');
+		uartTx('M');
 		//task_switch(secondStackPtr, primaryStackPtr);
-		_delay_ms(2000);
+		_delay_ms(5000);
 	}
 	
 	return 0;

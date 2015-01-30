@@ -18,7 +18,7 @@ ELF_FILE=wojOS.elf
 MAP_FILE=wojOS.map
 VPATH=drivers
 C_FILES=board.c uart.c
-SRC_FILES=
+SRC_FILES=kernel_asm.S
 
 OBJ_FILES=$(C_FILES:%.c=%.o)
 OBJ_FILES+=$(SRC_FILES:%.S=%.o)
