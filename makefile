@@ -35,7 +35,7 @@ $(ELF_FILE): $(OBJ_FILES)
 	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -M -o $*.d $<
 	$(CROSS_COMPILE) $(C_FLAGS) $(INCLUDES) -c -o $@ $<
 
-$.o: %.S
+%.o: %.S
 	$(CROSS_COMPILE) -D__ASM__ $(C_FLAGS) $(INCLUDES) -M -o $*.d $<
 	$(CROSS_COMPILE) -D__ASM__ $(C_FLAGS) $(INCLUDES) -c -o $@ $<
 

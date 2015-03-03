@@ -1,9 +1,11 @@
+#define __SFR_OFFSET 0
 #include "avr/io.h"
 
 	.text
-//	.p2align	2
+	.p2align	2
 	.global		taskSwitch
 taskSwitch:
+	PUSH r0
 	PUSH r1
 	PUSH r2
 	PUSH r3
@@ -46,7 +48,7 @@ taskSwitch:
 	IN r17, SPH
 
 	// Save the current tasks stack pointer to the 
-	// location passed in as arguemnt 1
+	// location passed in as argument 1
 	MOV R26, r24 // Argument 1 byte0 to X reg lower address
 	MOV R27, r25 // Argument 1 byte1 to X reg upper address
 	ST  X+, r16  // Store SPL and post increment 1 byte
@@ -56,7 +58,9 @@ taskSwitch:
 	// address for the next task
 	OUT SPL, r22 // Argument 2 byte0 	
 	OUT SPH, r23 // Argument 2 byte1
-
+	
+	POP R0
+	OUT SREG, R0
 	POP R31
 	POP R30
 	POP R29

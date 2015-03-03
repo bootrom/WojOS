@@ -10,6 +10,8 @@ static void *primaryStackPtr = NULL;
 static void *secondStackPtr = NULL;
 uint8_t secondStack[128];
 
+void taskSwitch(void** curTask, void* nextTask);
+
 int board_init()
 {
 	uartInit();
@@ -62,8 +64,13 @@ void * task_spawn(void *stackBase, int stackSize, void (*taskPointer)())
 
 void task2()
 {
-	uartTx('2');
-	//puts("This is task2\n", sizeof("this is task2\n");
+	while (1)
+	{
+		uartTx('P');
+		//puts("This is task2\n", sizeof("this is task2\n");
+		taskSwitch(&secondStackPtr, primaryStackPtr);
+		_delay_ms(5000);
+	}
 }
 
 int main()
@@ -71,11 +78,11 @@ int main()
 	board_init();
 	
 	secondStackPtr = task_spawn(secondStack, sizeof(secondStack), task2);
-
+	uartTx('S');
 	while (1)
 	{
-		uartTx('M');
-		//task_switch(secondStackPtr, primaryStackPtr);
+		uartTx('W');
+		taskSwitch(&primaryStackPtr, secondStackPtr);
 		_delay_ms(5000);
 	}
 	
