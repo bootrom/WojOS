@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "util/delay.h"
 #include "drivers/uart.h"
+#include "arch/avr/libc_stdio.h"
 
 #define	TICK	1
 #define CONTEXT_SIZE	36
@@ -14,7 +15,8 @@ void taskSwitch(void** curTask, void* nextTask);
 
 int board_init()
 {
-	uartInit();
+	stdioInit();
+	//uartInit();
 	return 0;
 }
 
@@ -66,7 +68,8 @@ void task2()
 {
 	while (1)
 	{
-		uartTx('P');
+		uartTx('b', 1);
+		//uartTx("task2\n");
 		//puts("This is task2\n", sizeof("this is task2\n");
 		taskSwitch(&secondStackPtr, primaryStackPtr);
 		_delay_ms(5000);
@@ -78,10 +81,10 @@ int main()
 	board_init();
 	
 	secondStackPtr = task_spawn(secondStack, sizeof(secondStack), task2);
-	uartTx('S');
 	while (1)
 	{
-		uartTx('W');
+		uartTx('a', 1);
+		//uartTx("main\n");
 		taskSwitch(&primaryStackPtr, secondStackPtr);
 		_delay_ms(5000);
 	}
