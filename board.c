@@ -1,5 +1,6 @@
 #include "avr/io.h"
 #include "stdlib.h"
+#include <stdio.h>
 #include "util/delay.h"
 #include "drivers/uart.h"
 #include "arch/avr/libc_stdio.h"
@@ -68,7 +69,8 @@ void task2()
 {
 	while (1)
 	{
-		uartTx('b', 1);
+		printf("task2 printf\n");
+		//uartTx('b', 1);
 		//uartTx("task2\n");
 		//puts("This is task2\n", sizeof("this is task2\n");
 		taskSwitch(&secondStackPtr, primaryStackPtr);
@@ -83,7 +85,8 @@ int main()
 	secondStackPtr = task_spawn(secondStack, sizeof(secondStack), task2);
 	while (1)
 	{
-		uartTx('a', 1);
+		printf("main task printf\n");
+		//uartTx('a', 1);
 		//uartTx("main\n");
 		taskSwitch(&primaryStackPtr, secondStackPtr);
 		_delay_ms(5000);

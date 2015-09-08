@@ -6,4 +6,5 @@
 
 void uartInit();
 
-void uartTx(char txByte, int blocking);
+int uartTx(char txByte, int blocking);
+int uartRx(char rxByte, int blocking);

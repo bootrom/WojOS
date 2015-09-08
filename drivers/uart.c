@@ -9,7 +9,7 @@ void uartInit()
 	UCSR0B = 0x18;//UART_ENABLE;
 }
 
-void uartTx(char txByte, int blocking)
+int uartTx(char txByte, int blocking)
 {
 	
 	UDR0 = txByte;
@@ -17,7 +17,14 @@ void uartTx(char txByte, int blocking)
 	//Block until tranmit complete
 	if (blocking)
 		while (!(UCSR0A & TX_FINISHED)) {}
+	return 0;
 }
+
+int uartRx(char rxByte, int blocking)
+{
+	//fill this out
+	return 0;
+} 
 
 /*
 int uartTx(char* txByte)

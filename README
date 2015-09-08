@@ -4,6 +4,6 @@ Lightweight embedded operating system
 
 TODO:
 	Setup Makefile - DONE
-	Get simavr working
-	Basic task switching
-	Round robim scheduler
+	Basic task switching - DONE
+	Stdio streams initialized - DONE
+	Round robim scheduler 
