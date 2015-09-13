@@ -4,7 +4,7 @@
 #include "drivers/uart.h"
 #include "arch/avr/libc_stdio.h"
 #include "arch/avr/platform.h"
-#include "arch/avr/task.h"
+#include "kernel/kernel.h"
 #include <stdlib.h>
 
 #define	TICK	1

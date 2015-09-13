@@ -17,7 +17,7 @@ INCLUDES=-I.
 ELF_FILE=wojOS.elf
 MAP_FILE=wojOS.map
 VPATH=drivers arch/avr kernel/
-C_FILES=board.c uart.c libc_stdio.c platform.c task.c
+C_FILES=board.c uart.c libc_stdio.c platform.c kernel.c
 SRC_FILES=kernel_asm.S
 
 OBJ_FILES=$(C_FILES:%.c=%.o)

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "task.h"
-#include "kernel_asm.S"
+#include "kernel.h"
 
 void * task_spawn(void (*taskPointer)())
 {
