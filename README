@@ -6,4 +6,5 @@ TODO:
 	Setup Makefile - DONE
 	Basic task switching - DONE
 	Stdio streams initialized - DONE
-	Round robim scheduler 
+	Create timer driver 
+	Round robin scheduler 
